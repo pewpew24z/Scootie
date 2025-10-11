@@ -1,0 +1,139 @@
+/* --- Global Styles --- */
+body {
+  margin: 0;
+  font-family: 'Rubik', Rubik;
+  background-color: #FFFDF9;
+  color: #333;
+}
+
+/* --- Navbar --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px 40px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 75px;
+}
+
+.logo h1 {
+  font-size: 1.6rem;
+  color: #FFA726;
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  margin: 0 15px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #4FC3F7;
+}
+
+/* --- Hero Section --- */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(to bottom, #E3F2FD, #FFFDF9);
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.hero span {
+  color: #4FC3F7;
+  font-weight: 600;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 10px 0 30px;
+}
+
+/* --- Button --- */
+.btn {
+  background-color: #FFD54F;
+  color: #333;
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 25px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(255, 213, 79, 0.4);
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: #FFCA28;
+  transform: scale(1.05);
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #eee;
+}
+
+/* Promotion Section */
+.promotion-section {
+  text-align: center;
+  padding: 50px 20px 80px;
+}
+
+.promotion-section h3 {
+  font-size: 1.8rem;
+  color: #222;
+  margin-bottom: 30px;
+}
+
+.promotion-list {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.promotion-card {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 0;
+  padding: 20px;
+  width: 280px;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.promotion-card:hover {
+  border-color: #007bff;
+}
+
+.promotion-card h4 {
+  margin-top: 0;
+  color: #007bff;
+}
+
+.promotion-card .desc {
+  margin: 10px 0;
+  color: #555;
+}
