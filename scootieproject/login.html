@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Scootie</title>
+  <link rel="stylesheet" href="css/login.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .error-message {
+      display: none;
+      background-color: #fee;
+      color: #c33;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      border: 1px solid #fcc;
+    }
+    .btn-loading {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="image/scootie.png" alt="Scootie Logo">
+      <h1>Scootie</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="book.html">Book a Scooter</a>
+      <a href="login.html" class="active">Log In</a>
+    </nav>
+  </header>
+
+  <!-- Login Form -->
+  <main class="form-container">
+    <h2>Log In</h2>
+    
+    <!-- Error Message -->
+    <div id="error-message" class="error-message"></div>
+    
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+      <button type="submit" class="btn">
+        <span id="btn-text">Log In</span>
+        <span id="btn-loading" class="btn-loading">Loading...</span>
+      </button>
+
+      <p class="register-link">Don't have an account? <a href="register.html">Register here</a></p>
+    </form>
+  </main>
+
+  <!-- เอา script มาไว้ด้านล่างสุด -->
+  <script defer src="js/login.js"></script>
+  
+  <!-- หรือถ้า path ไม่ถูก ลองใช้แบบนี้ -->
+  <!-- <script defer src="login.js"></script> -->
+</body>
+</html>
