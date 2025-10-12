@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Scooter | Scootie</title>
+  <link rel="stylesheet" href="css/book.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 🔹 Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="image/scootie.png" alt="Scootie Logo">
+      <h1>Scootie</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="book.html" class="active">Book a Scooter</a>
+      <a href="login.html">Log In</a>
+    </nav>
+  </header>
+
+  <!-- Main-->
+  <main class="book-section">
+    <h2>Choose Your Scooter</h2>
+
+    <!-- Branch 1 -->
+    <section class="branch">
+      <h3>Pantip Place Area</h3>
+      <p class="contact">📞 Contact: 053-111-2222</p>
+      <div class="scooter-grid">
+        <div class="scooter-card available">
+          <img src="image/Honda-click-125-blue.jpg" alt="Scooter 1">
+          <h4>Honda Click 125i</h4>
+          <p>Status: <span class="status available">Available</span></p>
+          <p>Daily Rate : 250.00 Baht</p>
+          <button class="btn">Book Now</button>
+        </div>
+
+        <div class="scooter-card available">
+          <img src="image/honda-Click-125-red.png" alt="Scooter 2">
+          <h4>Honda Click 125i</h4>
+          <p>Status: <span class="status available">Available</span></p>
+          <p>Daily Rate : 250.00 Baht</p>
+          <button class="btn">Book Now</button>
+        </div>
+
+        <div class="scooter-card maintenance">
+          <img src="image/Honda-PCX-150.png" alt="Scooter 3">
+          <h4>Honda PCX 150</h4>
+          <p>Status: <span class="status maintenance">In Maintenance</span></p>
+          <p>Daily Rate : 400.00 Baht</p>
+          <button class="btn disabled" disabled>Not Available</button>
+        </div>
+      </div>
+    </section>
+
+    <!--  Branch 2 -->
+    <section class="branch">
+      <h3>Pantip Place Area</h3>
+      <p class="contact">📞 Contact: 053-111-2222</p>
+      <div class="scooter-grid">
+        <div class="scooter-card available">
+          <img src="image/Yamaha-nmax.png" alt="Scooter 4">
+          <h4>Yamaha NMAX</h4>
+          <p>Status: <span class="status rented">rented</span></p>
+          <p>Daily Rate : 450.00 Baht</p>
+          <button class="btn disabled" disabled>Not Available</button>
+        </div>
+
+        <div class="scooter-card available">
+          <img src="image/Honda-Click-150i.png" alt="Scooter 5">
+          <h4>Honda Click 150i</h4>
+          <p>Status: <span class="status available">Available</span></p>
+          <p>Daily Rate : 300.00 Baht</p>
+          <button class="btn">Book Now</button>
+        </div>
+
+        <div class="scooter-card maintenance">
+          <img src="image/Yamaha Aerox.png" alt="Scooter 6">
+          <h4>Yamaha Aerox</h4>
+          <p>Status: <span class="status available">Available</span></p>
+          <p>Daily Rate : 350.00 Baht</p>
+          <button class="btn" disabled>Available</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
