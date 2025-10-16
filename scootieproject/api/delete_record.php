@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: DELETE, OPTIONS');
@@ -9,27 +13,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Database connection
-$conn = mysqli_connect('localhost', 'root', '', 'scootiedb');
-
-if (!$conn) {
-    echo json_encode(['success' => false, 'error' => 'Database connection failed']);
-    exit();
-}
-
+require_once __DIR__ . '/db_connect.php';
 mysqli_set_charset($conn, 'utf8mb4');
 
-// รับข้อมูล
 $table = isset($_GET['table']) ? $_GET['table'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 
-// ตรวจสอบข้อมูล
 if (empty($table) || empty($id)) {
     echo json_encode(['success' => false, 'error' => 'Invalid input']);
     exit();
 }
 
-// White list ของตารางที่อนุญาต
+// White list
 $allowedTables = ['branch', 'account', 'employee', 'customer', 'scooter', 'promotion', 'rental', 'maintenance'];
 
 if (!in_array($table, $allowedTables)) {
@@ -37,7 +32,7 @@ if (!in_array($table, $allowedTables)) {
     exit();
 }
 
-// กำหนด primary key สำหรับแต่ละตาราง
+// primary key 
 $primaryKeys = [
     'branch' => 'Branch_ID',
     'account' => 'Account_ID',

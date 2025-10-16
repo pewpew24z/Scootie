@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  // ตรวจสอบ login status และแสดง profile icon
+  // check login status and show profile icon
   const userId = localStorage.getItem("userId");
   const customerName = localStorage.getItem("customerName") || localStorage.getItem("name");
   const loginLink = document.getElementById("login-link");
@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   console.log("Customer Name:", customerName);
 
   if (userId && customerName) {
-    // ซ่อน Login link และแสดง Profile icon
     loginLink.style.display = "none";
     profileIcon.style.display = "flex";
     profileIcon.textContent = customerName.charAt(0).toUpperCase();
@@ -18,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("Not logged in or missing data");
   }
 
-  // โหลดข้อมูล branches, promotions และ scooters
+  // branches, promotions, scooters
   let branches = [];
   let promotions = [];
   let scooters = [];
@@ -49,7 +48,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function updateScooterButtons() {
-    // อัพเดทปุ่มทั้งหมดด้วยข้อมูลจริงจาก database
     const bookButtons = document.querySelectorAll(".book-btn");
     
     bookButtons.forEach((btn, index) => {
@@ -107,14 +105,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   bookButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-      // ตรวจสอบว่า login หรือยัง
+      // check if user login or not
       if (!userId) {
         alert("Please log in before booking a scooter.");
         window.location.href = "login.html";
         return;
       }
 
-      // เก็บข้อมูล scooter
       currentScooterData = {
         licensePlate: btn.dataset.plate,
         model: btn.dataset.model,
@@ -122,20 +119,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         branch: btn.dataset.branch
       };
 
-      // แสดงข้อมูลใน modal
       document.getElementById("modal-scooter-model").textContent = currentScooterData.model;
       document.getElementById("modal-license-plate").textContent = currentScooterData.licensePlate;
       document.getElementById("modal-daily-rate").textContent = currentScooterData.rate;
 
-      // เซ็ต default pickup branch
+      // set default pickup branch
       document.getElementById("pickupBranch").value = currentScooterData.branch;
 
-      // เซ็ต default pickup date เป็นวันนี้
+      // set default pickup date เป็นวันนี้
       const now = new Date();
       now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
       document.getElementById("pickupDate").value = now.toISOString().slice(0, 16);
 
-      // แสดง modal
       modal.style.display = "block";
     });
   });
@@ -171,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // คำนวณ total cost
+    // คcalculate total cost
     const days = Math.ceil((new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24));
     const initialCost = days * parseFloat(currentScooterData.rate);
     
@@ -186,7 +181,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
-    // สร้าง rental object
+    // create rental object
     const rentalData = {
       customerId: userId,
       licensePlate: currentScooterData.licensePlate,
@@ -201,7 +196,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     try {
-      // ส่งข้อมูลไปยัง API
+      // send data to API
       console.log('Sending rental data:', rentalData);
       
       const response = await fetch('API/create_rental.php', {
@@ -222,7 +217,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert(`Booking Successful!\n\nTotal: ${finalCost.toFixed(2)} Baht\nDuration: ${days} days`);
         modal.style.display = "none";
         
-        // อัพเดท UI
+        // update UI
         const btn = Array.from(bookButtons).find(b => b.dataset.plate === currentScooterData.licensePlate);
         if (btn) {
           btn.textContent = "Rented";

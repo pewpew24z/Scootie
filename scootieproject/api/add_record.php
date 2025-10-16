@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -9,27 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Database connection
-$conn = mysqli_connect('localhost', 'root', '', 'scootiedb');
-
-if (!$conn) {
-    echo json_encode(['success' => false, 'error' => 'Database connection failed']);
-    exit();
-}
-
+require_once __DIR__ . '/db_connect.php';
 mysqli_set_charset($conn, 'utf8mb4');
 
-// รับข้อมูล
+
 $table = isset($_GET['table']) ? $_GET['table'] : '';
 $input = json_decode(file_get_contents('php://input'), true);
 
-// ตรวจสอบข้อมูล
 if (empty($table) || empty($input)) {
     echo json_encode(['success' => false, 'error' => 'Invalid input']);
     exit();
 }
 
-// White list ของตารางที่อนุญาต
+// White list
 $allowedTables = ['branch', 'account', 'employee', 'customer', 'scooter', 'promotion', 'rental', 'maintenance'];
 
 if (!in_array($table, $allowedTables)) {
@@ -37,16 +33,15 @@ if (!in_array($table, $allowedTables)) {
     exit();
 }
 
-// สร้าง SQL INSERT
+// create SQL INSERT
 $columns = [];
 $values = [];
 
 foreach ($input as $key => $value) {
-    // แปลง field name จาก snake_case เป็น column name
+    // convert field name จาก snake_case to column name
     $columnName = ucwords(str_replace('_', ' ', $key));
     $columnName = str_replace(' ', '_', $columnName);
     
-    // เพิ่มทุก column ที่ส่งมา ไม่มีการข้ามเลย
     $columns[] = "`$columnName`";
     $values[] = "'" . mysqli_real_escape_string($conn, $value) . "'";
 }

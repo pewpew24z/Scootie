@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('Form submitted');
         
-        // ดึงข้อมูลจากฟอร์ม
         const name = document.getElementById('name').value.trim();
         const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
@@ -19,26 +18,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
         
-        // ตรวจสอบว่ากรอกครบหรือไม่
         if (!name || !phone || !email || !license || !username || !password) {
             alert('Please fill in all fields');
             return;
         }
         
-        // ตรวจสอบความยาว password
+        // check password length
         if (password.length < 6) {
             alert('Password must be at least 6 characters');
             return;
         }
         
-        // ตรวจสอบ email format
+        // check email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             alert('Please enter a valid email address');
             return;
         }
         
-        // เตรียมข้อมูลสำหรับส่ง
         const data = {
             name: name,
             phone: phone,
@@ -73,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (result.success) {
                 alert('Registration successful! Please login.');
-                // Redirect ไปหน้า login
+                // Redirect to login
                 window.location.href = 'login.html';
             } else {
                 throw new Error(result.error || 'Registration failed');

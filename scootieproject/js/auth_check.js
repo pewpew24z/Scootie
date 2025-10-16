@@ -1,4 +1,4 @@
-// ตรวจสอบว่า login แล้วและเป็น employee หรือไม่
+// check login (employee)
 function checkEmployeeAuth() {
     const userType = localStorage.getItem('userType');
     const userId = localStorage.getItem('userId');
@@ -13,5 +13,4 @@ function checkEmployeeAuth() {
     return true;
 }
 
-// เรียกใช้ทันทีเมื่อโหลด script
 checkEmployeeAuth();

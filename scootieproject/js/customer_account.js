@@ -1,10 +1,8 @@
-// ⚠️ NOTE: localStorage is used here and works in regular environments
-// ดึงข้อมูลจาก localStorage
+
 const userType = localStorage.getItem('userType');
 const userId = localStorage.getItem('userId');
 const accountId = localStorage.getItem('accountId');
 
-// ตรวจสอบว่า login แล้วหรือยัง
 if (!userType || userType !== 'customer' || !userId) {
     alert('Please login first');
     window.location.href = 'login.html';
@@ -23,7 +21,6 @@ async function loadCustomerData() {
             throw new Error(data.error);
         }
         
-        // หาข้อมูล Customer โดยใช้ userId จาก localStorage
         const customerRow = data.customer.rows.find(row => row[0] === userId);
         if (!customerRow) {
             throw new Error('Customer not found');
@@ -60,7 +57,7 @@ async function loadCustomerData() {
         
     } catch (error) {
         console.error('Error loading customer data:', error);
-        alert('ไม่สามารถโหลดข้อมูลได้: ' + error.message);
+        alert('cannot loading: ' + error.message);
     }
 }
 

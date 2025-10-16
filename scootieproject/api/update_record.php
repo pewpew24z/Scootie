@@ -1,13 +1,7 @@
 <?php
-// ล้าง output buffer
-while (ob_get_level()) {
-    ob_end_clean();
-}
-ob_start();
 
-// ปิด error display
-error_reporting(0);
-ini_set('display_errors', 0);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
@@ -20,33 +14,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 try {
-    // Database connection
-    $conn = mysqli_connect('localhost', 'root', '', 'scootiedb');
-    
-    if (!$conn) {
-        throw new Exception('Database connection failed: ' . mysqli_connect_error());
-    }
-    
+
+    require_once __DIR__ . '/db_connect.php';
     mysqli_set_charset($conn, 'utf8mb4');
     
-    // รับข้อมูล
     $table = isset($_GET['table']) ? $_GET['table'] : '';
     $id = isset($_GET['id']) ? $_GET['id'] : '';
     $input = json_decode(file_get_contents('php://input'), true);
     
-    // ตรวจสอบข้อมูล
     if (empty($table) || empty($id) || empty($input)) {
         throw new Exception('Invalid input data');
     }
     
-    // White list ของตารางที่อนุญาต
+    // White list
     $allowedTables = ['branch', 'account', 'employee', 'customer', 'scooter', 'promotion', 'rental', 'maintenance'];
     
     if (!in_array($table, $allowedTables)) {
         throw new Exception('Invalid table name');
     }
     
-    // กำหนด primary key สำหรับแต่ละตาราง
+    // primary key
     $primaryKeys = [
         'branch' => 'Branch_ID',
         'account' => 'Account_ID',
@@ -60,17 +47,15 @@ try {
     
     $primaryKey = $primaryKeys[$table];
     
-    // สร้าง SQL UPDATE
+    // create SQL UPDATE
     $updates = [];
     foreach ($input as $key => $value) {
-        // แปลง field name
+        // convert field name
         $columnName = str_replace(' ', '_', ucwords(str_replace('_', ' ', $key)));
         
-        // ไม่อัพเดต primary key
         if ($columnName !== $primaryKey) {
             $escapedValue = mysqli_real_escape_string($conn, $value);
             
-            // ถ้าเป็น NULL หรือ empty string ในบางกรณี
             if ($value === null || $value === '') {
                 $updates[] = "`$columnName` = NULL";
             } else {

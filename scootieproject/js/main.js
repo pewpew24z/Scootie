@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
     } catch (error) {
         console.error('❌ Error loading data:', error);
-        // แสดง error message ให้ user
     }
   }
 
@@ -44,6 +43,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 }
 
-// เรียกใช้เมื่อโหลดหน้า
 loadTables();
 });

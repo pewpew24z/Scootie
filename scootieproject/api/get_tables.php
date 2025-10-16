@@ -1,13 +1,7 @@
 <?php
-// ล้าง output buffer
-while (ob_get_level()) {
-    ob_end_clean();
-}
-ob_start();
 
-// ปิด error display
-error_reporting(0);
-ini_set('display_errors', 0);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Set headers
 header('Content-Type: application/json; charset=utf-8');
@@ -22,20 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 try {
-    // Database configuration
-    $db_host = 'localhost';
-    $db_user = 'root';
-    $db_pass = '';
-    $db_name = 'scootiedb';
-    
-    // Create connection
-    $conn = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-    
-    if (!$conn) {
-        throw new Exception('Database connection failed: ' . mysqli_connect_error());
-    }
-    
-    // Set charset
+
+    require_once __DIR__ . '/db_connect.php';
     mysqli_set_charset($conn, 'utf8mb4');
 
     $tables = [];
@@ -163,12 +145,10 @@ try {
     // Close connection
     mysqli_close($conn);
     
-    // ล้าง buffer และส่ง JSON เท่านั้น
     ob_clean();
     echo json_encode($tables, JSON_UNESCAPED_UNICODE);
     
 } catch (Exception $e) {
-    // ล้าง buffer และส่ง error
     ob_clean();
     http_response_code(500);
     echo json_encode([
@@ -176,7 +156,4 @@ try {
         'success' => false
     ]);
 }
-
-// Flush output
-ob_end_flush();
 ?>

@@ -1,6 +1,5 @@
 <?php
 // read.php — JSON: {fields, rows}
-// ใช้ $conn จาก db_connect.php เท่านั้น
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') exit;

@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -9,26 +13,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Database connection
-$conn = mysqli_connect('localhost', 'root', '', 'scootiedb');
-
-if (!$conn) {
-    echo json_encode(['success' => false, 'error' => 'Database connection failed']);
-    exit();
-}
-
+require_once __DIR__ . '/db_connect.php';
 mysqli_set_charset($conn, 'utf8mb4');
 
-// รับข้อมูลจาก POST
 $input = json_decode(file_get_contents('php://input'), true);
 
-// ตรวจสอบข้อมูล
 if (empty($input)) {
     echo json_encode(['success' => false, 'error' => 'No data received']);
     exit();
 }
 
-// ดึงข้อมูลจาก input
 $name = isset($input['name']) ? trim($input['name']) : '';
 $phone = isset($input['phone']) ? trim($input['phone']) : '';
 $email = isset($input['email']) ? trim($input['email']) : '';
@@ -36,7 +30,7 @@ $license = isset($input['license']) ? trim($input['license']) : '';
 $username = isset($input['username']) ? trim($input['username']) : '';
 $password = isset($input['password']) ? trim($input['password']) : '';
 
-// Validate ข้อมูล
+// Validate 
 if (empty($name)) {
     echo json_encode(['success' => false, 'error' => 'Full name is required']);
     exit();
@@ -77,7 +71,7 @@ if (strlen($password) < 6) {
     exit();
 }
 
-// ตรวจสอบว่า username ซ้ำหรือไม่
+// check duplicate username 
 $checkUsername = "SELECT Account_ID FROM account WHERE Username = ?";
 $stmt = mysqli_prepare($conn, $checkUsername);
 mysqli_stmt_bind_param($stmt, "s", $username);
@@ -91,7 +85,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 }
 mysqli_stmt_close($stmt);
 
-// ตรวจสอบว่า email ซ้ำหรือไม่
+// check duplicate email
 $checkEmail = "SELECT Account_ID FROM account WHERE Email = ?";
 $stmt = mysqli_prepare($conn, $checkEmail);
 mysqli_stmt_bind_param($stmt, "s", $email);
@@ -105,7 +99,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 }
 mysqli_stmt_close($stmt);
 
-// ตรวจสอบว่า phone ซ้ำหรือไม่
+// check duplicate phone number
 $checkPhone = "SELECT Customer_ID FROM customer WHERE Phone_Number = ?";
 $stmt = mysqli_prepare($conn, $checkPhone);
 mysqli_stmt_bind_param($stmt, "s", $phone);
@@ -119,7 +113,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 }
 mysqli_stmt_close($stmt);
 
-// ตรวจสอบว่า license ซ้ำหรือไม่
+// check duplicate license
 $checkLicense = "SELECT Customer_ID FROM customer WHERE Driver_License_Number = ?";
 $stmt = mysqli_prepare($conn, $checkLicense);
 mysqli_stmt_bind_param($stmt, "s", $license);
@@ -133,12 +127,12 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 }
 mysqli_stmt_close($stmt);
 
-// เริ่ม Transaction
+// start Transaction
 mysqli_begin_transaction($conn);
 
 try {
-    // 1. Insert ลง Account table
-    $passwordHash = $password; // ในระบบจริงควรใช้ password_hash($password, PASSWORD_DEFAULT)
+    // 1. Insert to Account table
+    $passwordHash = $password;
     
     $insertAccount = "INSERT INTO account (Username, Password_Hash, Email) VALUES (?, ?, ?)";
     $stmt = mysqli_prepare($conn, $insertAccount);
@@ -151,8 +145,8 @@ try {
     $accountId = mysqli_insert_id($conn);
     mysqli_stmt_close($stmt);
     
-    // 2. Insert ลง Customer table
-    $membershipLevel = 'Regular'; // Default เป็น Regular
+    // 2. Insert to Customer table
+    $membershipLevel = 'Regular';
     
     $insertCustomer = "INSERT INTO customer (Account_ID, Name, Phone_Number, Email, Driver_License_Number, Membership_Level) 
                        VALUES (?, ?, ?, ?, ?, ?)";

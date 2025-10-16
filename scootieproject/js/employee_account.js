@@ -1,10 +1,8 @@
-// ⚠️ NOTE: localStorage is used here and works in regular environments
-// ดึงข้อมูลจาก localStorage
+
 const userType = localStorage.getItem('userType');
 const userId = localStorage.getItem('userId');
 const accountId = localStorage.getItem('accountId');
 
-// ตรวจสอบว่า login แล้วหรือยัง
 if (!userType || userType !== 'employee' || !userId) {
     alert('Please login first');
     window.location.href = 'login.html';
@@ -23,7 +21,6 @@ async function loadEmployeeData() {
             throw new Error(data.error);
         }
         
-        // หาข้อมูล Employee โดยใช้ userId จาก localStorage
         const employeeRow = data.employee.rows.find(row => row[0] === userId);
         if (!employeeRow) {
             throw new Error('Employee not found');
@@ -67,7 +64,7 @@ async function loadEmployeeData() {
         
     } catch (error) {
         console.error('Error loading employee data:', error);
-        alert('ไม่สามารถโหลดข้อมูลได้: ' + error.message);
+        alert('can not loading: ' + error.message);
     }
 }
 
@@ -105,7 +102,6 @@ function logout() {
     }
 }
 
-// เพิ่มฟังก์ชันสำหรับไปหน้า Dashboard
 function goToDashboard() {
     window.location.href = 'manager.html';
 }
