@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- 🔹 Navbar -->
+  <!-- Navbar -->
   <header class="navbar">
     <div class="logo">
       <img src="image/scootie.png" alt="Scootie Logo">
@@ -17,7 +17,8 @@
     <nav class="nav-links">
       <a href="home.html">Home</a>
       <a href="book.html" class="active">Book a Scooter</a>
-      <a href="login.html">Log In</a>
+      <a href="login.html" id="login-link">Log In</a>
+      <a href="customer_account.html" id="profile-icon" class="profile-icon" style="display: none;"></a>
     </nav>
   </header>
 
@@ -35,7 +36,7 @@
           <h4>Honda Click 125i</h4>
           <p>Status: <span class="status available">Available</span></p>
           <p>Daily Rate : 250.00 Baht</p>
-          <button class="btn">Book Now</button>
+          <button class="btn book-btn" data-plate="1กก-1234" data-model="Honda Click 125i" data-rate="250.00" data-branch="B001">Book Now</button>
         </div>
 
         <div class="scooter-card available">
@@ -43,7 +44,7 @@
           <h4>Honda Click 125i</h4>
           <p>Status: <span class="status available">Available</span></p>
           <p>Daily Rate : 250.00 Baht</p>
-          <button class="btn">Book Now</button>
+          <button class="btn book-btn" data-plate="1กก-5678" data-model="Honda Click 125i" data-rate="250.00" data-branch="B001">Book Now</button>
         </div>
 
         <div class="scooter-card maintenance">
@@ -56,7 +57,7 @@
       </div>
     </section>
 
-    <!--  Branch 2 -->
+    <!-- Branch 2 -->
     <section class="branch">
       <h3>Pantip Place Area</h3>
       <p class="contact">📞 Contact: 053-111-2222</p>
@@ -74,7 +75,7 @@
           <h4>Honda Click 150i</h4>
           <p>Status: <span class="status available">Available</span></p>
           <p>Daily Rate : 300.00 Baht</p>
-          <button class="btn">Book Now</button>
+          <button class="btn book-btn" data-plate="2กข-1111" data-model="Honda Click 150i" data-rate="300.00" data-branch="B002">Book Now</button>
         </div>
 
         <div class="scooter-card maintenance">
@@ -82,10 +83,66 @@
           <h4>Yamaha Aerox</h4>
           <p>Status: <span class="status available">Available</span></p>
           <p>Daily Rate : 350.00 Baht</p>
-          <button class="btn" disabled>Available</button>
+          <button class="btn book-btn" data-plate="2กข-2222" data-model="Yamaha Aerox" data-rate="350.00" data-branch="B002">Book Now</button>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- ⭐⭐⭐ Modal อยู่นอก main (สำคัญมาก!) ⭐⭐⭐ -->
+  <div id="bookingModal" class="modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);">
+    <div class="modal-content" style="position: relative; z-index: 10000;">
+      <div class="modal-header">
+        <h2>🛵 Book Your Scooter</h2>
+        <span class="close">&times;</span>
+      </div>
+      
+      <div class="scooter-info">
+        <h3 id="modal-scooter-model">Honda Click 125i</h3>
+        <p><strong>License Plate:</strong> <span id="modal-license-plate">-</span></p>
+        <p><strong>Daily Rate:</strong> <span id="modal-daily-rate">-</span> Baht</p>
+      </div>
+
+      <form id="bookingForm">
+        <div class="form-group">
+          <label for="pickupBranch">Pickup Branch *</label>
+          <select id="pickupBranch" required>
+            <option value="">Select Branch</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="returnBranch">Return Branch *</label>
+          <select id="returnBranch" required>
+            <option value="">Select Branch</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pickupDate">Pickup Date & Time *</label>
+          <input type="datetime-local" id="pickupDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="returnDate">Expected Return Date & Time *</label>
+          <input type="datetime-local" id="returnDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="promotion">Promotion Code (Optional)</label>
+          <select id="promotion">
+            <option value="">No Promotion</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="modal-btn modal-btn-secondary" id="cancelBtn">Cancel</button>
+          <button type="submit" class="modal-btn modal-btn-primary">Confirm Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/book.js"></script>
 </body>
 </html>

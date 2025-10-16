@@ -161,6 +161,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('username', accountUsername);
                     localStorage.setItem('email', accountEmail);
                     localStorage.setItem('name', customerRow[2]);
+
+                    localStorage.setItem('customerName', customerRow[2]);
                     
                     console.log('✅ Data saved to localStorage');
                 } catch (storageError) {

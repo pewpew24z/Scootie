@@ -6,6 +6,28 @@
   <title>Scootie - Chiang Mai Scooter Rental</title>
   <link rel="stylesheet" href="css/home.css">
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Profile Icon Styles */
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      text-decoration: none;
+    }
+    
+    .profile-icon:hover {
+      transform: scale(1.1);
+    }
+  </style>
 </head>
 
 <body>
@@ -18,14 +40,15 @@
     <nav class="nav-links">
       <a href="home.html" class="active">Home</a>
       <a href="book.html">Book a Scooter</a>
-      <a href="login.html">Log In</a>
+      <a href="login.html" id="login-link">Log In</a>
+      <a href="customer_account.html" id="profile-icon" class="profile-icon" style="display: none;"></a>
     </nav>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
     <h2>Rent a scooter anywhere in <span>Chiang Mai</span></h2>
-    <p>Explore the city with Scootie — fun, easy, and fast!</p>
+    <p>Explore the city with Scootie – fun, easy, and fast!</p>
     <a href="book.html" class="btn">Book a Scooter</a>
   </section>
 
@@ -51,6 +74,21 @@
     </div>
   </section>
 
+  <script>
+    // ตรวจสอบ login status และแสดง profile icon
+    document.addEventListener("DOMContentLoaded", () => {
+      const userId = localStorage.getItem("userId");
+      const customerName = localStorage.getItem("customerName");
+      const loginLink = document.getElementById("login-link");
+      const profileIcon = document.getElementById("profile-icon");
+
+      if (userId && customerName) {
+        // ซ่อน Login link และแสดง Profile icon
+        loginLink.style.display = "none";
+        profileIcon.style.display = "flex";
+        profileIcon.textContent = customerName.charAt(0).toUpperCase();
+      }
+    });
+  </script>
 </body>
 </html>
-
