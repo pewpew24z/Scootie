@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Attempting to login...');
             
             // retrieve information from API -  use relative path
-            const apiUrl = 'API/get_tables.php';
+            const apiUrl = 'api/get_tables.php';
             const fullUrl = window.location.origin + window.location.pathname.replace('login.html', '') + apiUrl;
             
             console.log('Fetching from:', fullUrl);

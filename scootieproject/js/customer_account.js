@@ -14,7 +14,7 @@ let rentalHistory = [];
 
 async function loadCustomerData() {
     try {
-        const response = await fetch('API/get_tables.php');
+        const response = await fetch('api/get_tables.php');
         const data = await response.json();
         
         if (data.error) {

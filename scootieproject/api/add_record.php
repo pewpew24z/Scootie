@@ -38,7 +38,7 @@ $columns = [];
 $values = [];
 
 foreach ($input as $key => $value) {
-    // convert field name จาก snake_case to column name
+    // convert field name from snake_case to column name
     $columnName = ucwords(str_replace('_', ' ', $key));
     $columnName = str_replace(' ', '_', $columnName);
     
@@ -54,6 +54,7 @@ if (empty($columns)) {
 $columnsStr = implode(', ', $columns);
 $valuesStr = implode(', ', $values);
 
+//Create (CRUD)
 $sql = "INSERT INTO `$table` ($columnsStr) VALUES ($valuesStr)";
 
 if (mysqli_query($conn, $sql)) {

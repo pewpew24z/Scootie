@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let currentScooterData = null;
 
   try {
-    const response = await fetch('API/get_tables.php');
+    const response = await fetch('api/get_tables.php');
     const data = await response.json();
     
     if (data.branch) {
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // send data to API
       console.log('Sending rental data:', rentalData);
       
-      const response = await fetch('API/create_rental.php', {
+      const response = await fetch('api/create_rental.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

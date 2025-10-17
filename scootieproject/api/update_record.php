@@ -71,6 +71,7 @@ try {
     $updateStr = implode(', ', $updates);
     $escapedId = mysqli_real_escape_string($conn, $id);
     
+    // Update (CRUD)
     $sql = "UPDATE `$table` SET $updateStr WHERE `$primaryKey` = '$escapedId'";
     
     if (mysqli_query($conn, $sql)) {

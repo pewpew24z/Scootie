@@ -71,7 +71,7 @@ if (strlen($password) < 6) {
     exit();
 }
 
-// check duplicate username 
+// check username 
 $checkUsername = "SELECT Account_ID FROM account WHERE Username = ?";
 $stmt = mysqli_prepare($conn, $checkUsername);
 mysqli_stmt_bind_param($stmt, "s", $username);
@@ -85,7 +85,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 }
 mysqli_stmt_close($stmt);
 
-// check duplicate email
+// check email
 $checkEmail = "SELECT Account_ID FROM account WHERE Email = ?";
 $stmt = mysqli_prepare($conn, $checkEmail);
 mysqli_stmt_bind_param($stmt, "s", $email);
@@ -99,7 +99,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 }
 mysqli_stmt_close($stmt);
 
-// check duplicate phone number
+// check phone number
 $checkPhone = "SELECT Customer_ID FROM customer WHERE Phone_Number = ?";
 $stmt = mysqli_prepare($conn, $checkPhone);
 mysqli_stmt_bind_param($stmt, "s", $phone);
@@ -113,7 +113,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 }
 mysqli_stmt_close($stmt);
 
-// check duplicate license
+// check license
 $checkLicense = "SELECT Customer_ID FROM customer WHERE Driver_License_Number = ?";
 $stmt = mysqli_prepare($conn, $checkLicense);
 mysqli_stmt_bind_param($stmt, "s", $license);

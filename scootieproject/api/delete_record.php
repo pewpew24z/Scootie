@@ -47,6 +47,8 @@ $primaryKeys = [
 $primaryKey = $primaryKeys[$table];
 $escapedId = mysqli_real_escape_string($conn, $id);
 
+
+//Delete (CRUD)
 $sql = "DELETE FROM `$table` WHERE `$primaryKey` = '$escapedId'";
 
 if (mysqli_query($conn, $sql)) {

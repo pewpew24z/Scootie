@@ -45,3 +45,4 @@ $m = $conn->query("SHOW COLUMNS FROM `$table`");
 while ($f = $m->fetch_assoc()) $fields[] = $f['Field'];
 
 echo json_encode(['fields'=>$fields, 'rows'=>$rows]);
+?>

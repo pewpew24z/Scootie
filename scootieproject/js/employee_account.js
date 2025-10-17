@@ -14,7 +14,7 @@ let branchData = null;
 
 async function loadEmployeeData() {
     try {
-        const response = await fetch('API/get_tables.php');
+        const response = await fetch('api/get_tables.php');
         const data = await response.json();
         
         if (data.error) {

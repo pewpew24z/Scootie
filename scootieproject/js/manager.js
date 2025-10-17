@@ -13,7 +13,7 @@ let isAddMode = false;
 // Load all data
 async function loadData() {
     try {
-        const response = await fetch('API/get_tables.php');
+        const response = await fetch('api/get_tables.php');
         const data = await response.json();
         
         if (data.error) {
@@ -242,11 +242,11 @@ async function saveEdit() {
         let url, method;
         
         if (isAddMode) {
-            url = `API/add_record.php?table=${currentTable}`;
+            url = `api/add_record.php?table=${currentTable}`;
             method = 'POST';
         } else {
             const primaryKey = tableData.rows[currentEditIndex][0];
-            url = `API/update_record.php?table=${currentTable}&id=${encodeURIComponent(primaryKey)}`;
+            url = `api/update_record.php?table=${currentTable}&id=${encodeURIComponent(primaryKey)}`;
             method = 'POST';
         }
         
@@ -290,7 +290,7 @@ async function deleteRow(id) {
     }
     
     try {
-        const response = await fetch(`API/delete_record.php?table=${currentTable}&id=${encodeURIComponent(id)}`, {
+        const response = await fetch(`api/delete_record.php?table=${currentTable}&id=${encodeURIComponent(id)}`, {
             method: 'DELETE'
         });
         
